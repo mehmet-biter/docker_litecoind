@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+  dogecoin:
+    restart: always
+    image: realnuts/docker_litecoind:v1.0.18.1
+    ports:
+      - "9432:9432"
+      - "9433:9433"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/ltc_data:/litecoin/data
+    command:
+       - "-printtoconsole"
+       - "-regtest=0"
+       - "-rest"
+       - "-rpcallowip=0/32"
+       - "-rpcallowip=172.17.0.0/16"
+       - "-rpcpassword=test"
+       - "-wallet=wallet1"
+       - "-rpcport=8333"
+       - "-rpcuser=foo"
+       - "-server"
