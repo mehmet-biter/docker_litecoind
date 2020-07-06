@@ -20,8 +20,6 @@ RUN set -x && \
   tar xvf litecoin-${VERSION}-x86_64-linux-gnu.tar.gz && \
   cd litecoin-${VERSION} && \
   mv bin/* /usr/bin/ && \
-  mv lib/* /usr/bin/ && \
-  mv include/* /usr/bin/ && \
   mv share/* /usr/bin/ && \
   cd /root && \
   rm -Rf litecoin-${VERSION} litecoin-${VERSION}-x86_64-linux-gnu.tar.gz
