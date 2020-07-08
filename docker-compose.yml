@@ -1,23 +1,26 @@
 version: '3.6'
 
 services:
-  litecoin:
+  mainnet:
+    image: realnuts\docker_litecoind:0.18.1-0
     restart: always
-    image: realnuts/docker_litecoind:v1.0.18.1
+    user: root
+    command: litecoind
     ports:
-      - "9432:9432"
-      - "9433:9433"
+      - "9332:9332"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/ltc_data:/litecoin/data
-    command:
-       - "-printtoconsole"
-       - "-regtest=0"
-       - "-rest"
-       - "-rpcallowip=0/32"
-       - "-rpcallowip=172.17.0.0/16"
-       - "-rpcpassword=test"
-       - "-wallet=wallet1"
-       - "-rpcport=9432"
-       - "-rpcuser=foo"
-       - "-server"
+      - /opt/litecoin/keys/mainnet:/litecoin/wallet
+      - /opt/litecoin/blocks/mainnet:/litecoin/.litecoin/blocks
+      - /opt/litecoin/config/mainnet.conf:/litecoin/.litecoin/litecoin.conf
+
+  testnet:
+    image: quay.io/openware/litecoin:0.17.1
+    restart: always
+    user: root
+    command: litecoind
+    ports:
+      - "19332:19332"
+    volumes:
+      - /opt/litecoin/keys/testnet:/litecoin/wallet
+      - /opt/litecoin/blocks/testnet:/litecoin/.litecoin/testnet3/blocks
+      - /opt/litecoin/config/testnet.conf:/home/litecoin/.litecoin/litecoin.conf
